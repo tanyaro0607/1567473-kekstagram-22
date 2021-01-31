@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Татьяна Рохлова](https://up.htmlacademy.ru/javascript/22/user/1567473).
-* Наставник: `Неизвестно`.
+* Наставник: [Elizaveta Kryazhkova](https://htmlacademy.ru/profile/id320787).
 
 ---
 
