@@ -15,4 +15,4 @@ const getPossibleRowSize = (rowCheck, maxRowSize) => {
   }
   return false;
 }
-alert(getPossibleRowSize(2,140));
+alert(getPossibleRowSize('2',140));
