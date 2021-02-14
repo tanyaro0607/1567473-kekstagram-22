@@ -1,5 +1,4 @@
 //Функция для проверки допустимой длины строки
-
 const getPossibleRowSize = (rowCheck, maxRowSize) => {
   if (rowCheck.length <= maxRowSize ) {
     return true;
@@ -7,42 +6,6 @@ const getPossibleRowSize = (rowCheck, maxRowSize) => {
   return false;
 }
 alert(getPossibleRowSize('2',140));
-
-//HW
-/*
-const getRandomInteger = (min, max) => {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-const getRandomArray = () => {
-  let arr = [];
-  for (let i=0; i < 25; i++) {
-    let randomInteger = getRandomArray();
-    if (arr.find(randomInteger)) {
-      return Math.floor(Math.random() * (max - min + 1)) + min;
-    } else {
-      arr.push(randomInteger);
-    }
-  }
-}
-*/
-
-//получение массива элементов
-/*const array = [],
-  min = 1,
-  max = 25;
-
-for(let i = 1; i <= max; i++) array.push(i);
-array.splice(arr.indexOf(Math.floor(Math.random() * (max + 1 - min) + min)),1);
-array.sort(function() { return Math.random() - 0.5});
-//console.log(arr);
-
-//перебор по одному
-for (let i = 0; i <= array.length - 1; i++) {
-  array[i];
-}*/
 
 //исходные данные
 const NAMES = [
@@ -78,6 +41,13 @@ const DESCRIPTION = [
   'Наш новый дом',
 ];
 
+const MIN_NUMBER = 1; //id,url,avatar
+const MAX_NUMBER = 25; //id,url
+const MIN_NUMBER_LIKES = 15;
+const MAX_NUMBER_LIKES = 200;
+const MAX_NUMBER_AVATAR = 6;
+const MIN_COMMENTS_ID = 100;
+const MAX_COMMENTS_ID = 999;
 const POST_COUNT = 25; // всего элементов
 
 // Получение случайного числа в диапозоне(включительно)
@@ -87,21 +57,14 @@ const getRandomInteger = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-//id, url, Avatar- сделать массив, чтоб числа были уникальны и брать число из него
-
-//из лекции - получить рандомный элемент из массива - ошибка lodash при проверке
-/*const getRandomArrayElement = (elements) => {
-  return elements[_.random(0, elements.length - 1)];
-}; */
-
-//получить рандомный элемент из массива
+//Получение рандомного элемента из массива для COMMENTS, NAMES, DESCRIPTION
 const getRandomArrayElement = (elements) =>{
   return elements[getRandomInteger(0, elements.length - 1)];
 };
 
-// Функция генерируящая id фотографии, номер фото url, avatar
-let getRandonValue = (minValue, maxValue, length) => {
-  let randomValue = [];
+// Функция генерируящая id, url, avatar
+const getRandomValue = (minValue, maxValue, length) => {
+  const randomValue = [];
   while(randomValue.length < length) {
     const random = getRandomInteger(minValue, maxValue);
     if (randomValue.indexOf(random) === -1) {
@@ -110,23 +73,25 @@ let getRandonValue = (minValue, maxValue, length) => {
   }
   return randomValue;
 }
-getRandonValue();
+getRandomValue(); //console.log(getRandomValue(1, POST_COUNT, POST_COUNT));
 
-//функция + описание
+//конечная функция + описание
 const createPost = () => {
   return {
-    id: getRandonValue(1,25), // уникальный?
-    url: 'photos/'+getRandonValue(1,25)+'.jpg', //уникальный?
+    id: getRandomValue(MIN_NUMBER, MAX_NUMBER, POST_COUNT)[0],
+    url: 'photos/'+getRandomValue(MIN_NUMBER, MAX_NUMBER, POST_COUNT)[0]+'.jpg',
     description: getRandomArrayElement(DESCRIPTION),
-    likes: getRandomInteger(15,200), //ок
+    likes: getRandomInteger(MIN_NUMBER_LIKES, MAX_NUMBER_LIKES),
     comments: [{
-      id: getRandonValue(100,999), //уникальный?
-      avatar: 'img/avatar-'+getRandonValue(1,6)+'.svg', //исправить на уникальный
-      message: getRandomArrayElement(COMMENTS), //OK
-      name: getRandomArrayElement(NAMES), //OK
+      id: getRandomValue(MIN_COMMENTS_ID, MAX_COMMENTS_ID, POST_COUNT)[0],
+      avatar: 'img/avatar-'+getRandomValue(1, MAX_NUMBER_AVATAR, POST_COUNT)[0]+'.svg',
+      message: getRandomArrayElement(COMMENTS),
+      name: getRandomArrayElement(NAMES),
     }],
   }
 };
+//console.log(createPost());
 
 const similarPosts = new Array(POST_COUNT).fill(null).map(() => createPost());
-similarPosts(); //console.log(similarPosts);
+//console.log(similarPosts);
+alert(similarPosts);
