@@ -62,7 +62,7 @@ const getRandomArrayElement = (elements) =>{
   return elements[getRandomInteger(0, elements.length - 1)];
 };
 
-// Функция генерируящая id, url, avatar
+// Функция генерируящая массив неповторяющихся числе для id, url, avatar
 const getRandomValue = (minValue, maxValue, length) => {
   const randomValue = [];
   while(randomValue.length < length) {
@@ -73,25 +73,31 @@ const getRandomValue = (minValue, maxValue, length) => {
   }
   return randomValue;
 }
-getRandomValue(); //console.log(getRandomValue(1, POST_COUNT, POST_COUNT));
 
 //конечная функция + описание
-const createPost = () => {
+const createPost = (randomNumber, randomNumberCommentsId) => {
   return {
-    id: getRandomValue(MIN_NUMBER, MAX_NUMBER, POST_COUNT)[0],
-    url: 'photos/'+getRandomValue(MIN_NUMBER, MAX_NUMBER, POST_COUNT)[0]+'.jpg',
+    id: randomNumber,
+    url: 'photos/'+randomNumber+'.jpg',
     description: getRandomArrayElement(DESCRIPTION),
     likes: getRandomInteger(MIN_NUMBER_LIKES, MAX_NUMBER_LIKES),
     comments: [{
-      id: getRandomValue(MIN_COMMENTS_ID, MAX_COMMENTS_ID, POST_COUNT)[0],
-      avatar: 'img/avatar-'+getRandomValue(1, MAX_NUMBER_AVATAR, POST_COUNT)[0]+'.svg',
+      id: randomNumberCommentsId,
+      avatar: 'img/avatar-'+getRandomInteger(1, MAX_NUMBER_AVATAR)+'.svg',
       message: getRandomArrayElement(COMMENTS),
       name: getRandomArrayElement(NAMES),
     }],
   }
 };
-//console.log(createPost());
 
-const similarPosts = new Array(POST_COUNT).fill(null).map(() => createPost());
-//console.log(similarPosts);
-alert(similarPosts);
+const createPosts = () => {
+  let postArray = [];
+  const randomArray = getRandomValue(MIN_NUMBER, MAX_NUMBER, POST_COUNT); //массив чисел от 1 до 25
+  const randomArrayCommentsId = getRandomValue(MIN_COMMENTS_ID, MAX_COMMENTS_ID, POST_COUNT); //массив чисел от 100 до 999
+  for (let i=0; i < POST_COUNT; i++) {
+    postArray.push(createPost(randomArray[i], randomArrayCommentsId[i]));
+  }
+  return postArray;
+}
+
+createPosts();
