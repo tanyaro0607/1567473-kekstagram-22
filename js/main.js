@@ -1,3 +1,1 @@
-import {createPosts} from './create-post.js';
-
-createPosts();
+import './photo-mihiature.js';
