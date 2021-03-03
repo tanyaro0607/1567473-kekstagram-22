@@ -17,7 +17,7 @@ similarPhotos.forEach(({url, likes, comments}) => {
   const photoElement = similarPhotoTemplate.cloneNode(true);  //копируем с содержимым
   photoElement.querySelector('.picture__img').src = url; //Адрес изображения url подставьте как src изображения
   photoElement.querySelector('.picture__likes').textContent = likes; //Количество лайков likes подставьте как текстовое содержание элемента .picture__likes
-  photoElement.querySelector('.picture__comments').textContent = comments; //Количество комментариев comments подставьте как текстовое содержание элемента .picture__comments.
+  photoElement.querySelector('.picture__comments').textContent = comments.length; //Количество комментариев comments подставьте как текстовое содержание элемента .picture__comments.
   similarListFragment.appendChild(photoElement); // фото вставляем в конец списка
 });
 
